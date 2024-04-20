@@ -9,5 +9,7 @@ scikit-learn
 catboost
 xgboost
 dill
+python-box
+ensure
 Flask
 -e .
