@@ -1,7 +1,7 @@
 from instamarket.constants import CONFIG_FILE_PATH
 from instamarket.utils.common import read_yaml, create_directories
 
-from instamarket.entity import (DataIngestionConfig, DataPreprocessingConfig)
+from instamarket.entity import (DataIngestionConfig, DataPreprocessingConfig, DataPreparationConfig)
 
 class ConfigurationManager:
     def __init__(self) -> None:
@@ -36,3 +36,15 @@ class ConfigurationManager:
         )
 
         return data_preprocessing_config
+
+    def get_data_preparation_config(self) -> DataPreparationConfig:
+        config = self.config.data_preparation
+
+        create_directories([config.root_dir])
+
+        data_preparation_config = DataPreparationConfig(
+            root_dir=config.root_dir,
+            data_path=config.data_path
+        )
+
+        return data_preparation_config

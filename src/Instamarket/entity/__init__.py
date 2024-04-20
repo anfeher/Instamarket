@@ -12,3 +12,8 @@ class DataPreprocessingConfig:
     root_dir: Path
     data_path: Path
     clean_data_file: Path
+
+@dataclass(frozen=True)
+class DataPreparationConfig:
+    root_dir: Path
+    data_path: Path

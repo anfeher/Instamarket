@@ -9,3 +9,7 @@ data_preprocessing:
   root_dir: artifacts/data_preprocessing
   data_path: artifacts/data_ingestion/raw_data.csv
   clean_data_file: artifacts/data_preprocessing/clean_data.csv
+
+data_preparation:
+  root_dir: artifacts/data_preparation
+  data_path: artifacts/data_preprocessing/clean_data.csv
