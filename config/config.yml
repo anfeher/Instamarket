@@ -4,3 +4,8 @@ data_ingestion:
   root_dir: artifacts/data_ingestion
   source_URL: https://drive.usercontent.google.com/u/0/uc?id=1WTSoktGIVNhHhsZX9i-iBTA2CM_8EP1E&export=download
   local_data_file: artifacts/data_ingestion/raw_data.csv
+
+data_preprocessing:
+  root_dir: artifacts/data_preprocessing
+  data_path: artifacts/data_ingestion/raw_data.csv
+  clean_data_file: artifacts/data_preprocessing/clean_data.csv
