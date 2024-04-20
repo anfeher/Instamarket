@@ -1,0 +1,13 @@
+pandas
+numpy
+seaborn
+dvc
+mlflow
+pyYAML
+tqdm
+scikit-learn
+catboost
+xgboost
+dill
+Flask
+-e .
