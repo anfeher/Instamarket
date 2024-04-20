@@ -1,5 +1,6 @@
 import os
 import yaml
+import dill
 
 from box import ConfigBox
 from box.exceptions import BoxValueError
@@ -44,3 +45,15 @@ def create_directories(path_to_directories:list, verbose=True):
         os.makedirs(path, exist_ok=True)
         if verbose:
             logger.info(f"Created directory at: {path}")
+
+def save_object(file_path, obj):
+    try:
+        dir_path = os.path.dirname(file_path)
+
+        os.makedirs(dir_path, exist_ok=True)
+
+        with open(file_path, "wb") as file_obj:
+            dill.dump(obj, file_obj)
+
+    except Exception as e:
+        raise e

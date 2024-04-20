@@ -17,3 +17,10 @@ class DataPreprocessingConfig:
 class DataPreparationConfig:
     root_dir: Path
     data_path: Path
+
+@dataclass(frozen=True)
+class DataTransformationConfig:
+    root_dir: Path
+    data_path: Path
+    preprocessor_file: Path
+

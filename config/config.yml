@@ -13,3 +13,8 @@ data_preprocessing:
 data_preparation:
   root_dir: artifacts/data_preparation
   data_path: artifacts/data_preprocessing/clean_data.csv
+
+data_transformation:
+  root_dir: artifacts/data_transformation
+  data_path: artifacts/data_preparation/
+  preprocessor_file: artifacts/data_transformation/preprocessor.pkl
