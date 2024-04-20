@@ -25,3 +25,9 @@ class DataTransformationConfig:
     stores_list_file: Path
     preprocessor_file: Path
 
+@dataclass(frozen=True)
+class ModelTrainerConfig:
+    root_dir: Path
+    data_path: Path
+    model: str
+    hparams: dict
