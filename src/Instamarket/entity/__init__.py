@@ -22,5 +22,6 @@ class DataPreparationConfig:
 class DataTransformationConfig:
     root_dir: Path
     data_path: Path
+    stores_list_file: Path
     preprocessor_file: Path
 

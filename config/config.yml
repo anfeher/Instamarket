@@ -17,4 +17,10 @@ data_preparation:
 data_transformation:
   root_dir: artifacts/data_transformation
   data_path: artifacts/data_preparation/
+  stores_list_file: artifacts/data_preprocessing/stores.pkl
   preprocessor_file: artifacts/data_transformation/preprocessor.pkl
+
+model_trainer:
+  root_dir: artifacts/model_trainer
+  data_path: artifacts/data_transformation/
+  model_file: artifacts/model_trainer/model.pkl

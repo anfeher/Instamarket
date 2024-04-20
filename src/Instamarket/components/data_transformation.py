@@ -6,10 +6,9 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from scipy.sparse import hstack
-from pathlib import Path
 
 from instamarket.entity import DataTransformationConfig
-from instamarket.utils.common import save_object
+from instamarket.utils.common import save_object, load_object
 from instamarket.logging import logger
 
 class DataTransformation:
@@ -35,9 +34,12 @@ class DataTransformation:
         )
         logger.info("Numerical columns standard scaling completed")
 
+        stores = load_object(self.config.stores_list_file)
+        datetime_categories = [list(range(1,32)),list(range(0,24)),list(range(0,60)),list(range(0,7))]
+        categories = [stores,*datetime_categories,*datetime_categories]
         cat_pipeline = Pipeline(
             steps=[
-                ("one_hot_encoder",OneHotEncoder()),
+                ("one_hot_encoder",OneHotEncoder(categories=categories)),
                 ("scaler",StandardScaler(with_mean=False))
             ]
         )
@@ -51,7 +53,7 @@ class DataTransformation:
         )
 
         logger.info("Save preprocessing object")
-        save_object(file_path=Path(self.config.preprocessor_file), obj=preprocessor)
+        save_object(self.config.preprocessor_file, preprocessor)
 
         return preprocessor
 
