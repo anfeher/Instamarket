@@ -1,7 +1,9 @@
+import os
 import pandas as pd
 import numpy as np
 
 from instamarket.entity import DataPreprocessingConfig
+from instamarket.utils.common import save_object
 from instamarket.logging import logger
 
 class DataPreprocessing:
@@ -54,5 +56,8 @@ class DataPreprocessing:
         logger.info("Dropping not neccesary columns") 
         df_clean = df_filtered.drop(columns=["actual_start_time_picking","actual_end_time_picking","actual_total_time","diff_actual_optimal_time","PTP",*zcore_cols])
 
+        logger.info("Saving list of stores")
+        save_object(os.path.join(self.config.root_dir,"stores.pkl"),list(df_clean["store_id"].unique()))
+
+        logger.info("Saving preprocessing data")
         df_clean.to_csv(self.config.clean_data_file, index=False, header=True)
-        logger.info("Preprocessing data saved") 
