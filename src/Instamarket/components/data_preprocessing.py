@@ -49,6 +49,10 @@ class DataPreprocessing:
         zcore_cols  =  [col+ '_zscore' for col in cols_to_normalize]
         filters = [(df[col]>-3) & (df[col]<3) for col in zcore_cols]
 
-        df_clean = df[np.logical_and.reduce(filters)]
+        df_filtered = df[np.logical_and.reduce(filters)]
+
+        logger.info("Dropping not neccesary columns") 
+        df_clean = df_filtered.drop(columns=["actual_start_time_picking","actual_end_time_picking","actual_total_time","diff_actual_optimal_time","PTP",*zcore_cols])
+
         df_clean.to_csv(self.config.clean_data_file, index=False, header=True)
         logger.info("Preprocessing data saved") 
