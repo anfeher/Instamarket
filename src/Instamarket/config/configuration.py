@@ -3,7 +3,7 @@ from instamarket.utils.common import read_yaml, create_directories
 
 from instamarket.entity import (DataIngestionConfig, DataPreprocessingConfig, 
                                 DataPreparationConfig, DataTransformationConfig,
-                                ModelTrainerConfig)
+                                ModelTrainerConfig, ModelEvaluationConfig)
 
 class ConfigurationManager:
     def __init__(self) -> None:
@@ -81,3 +81,17 @@ class ConfigurationManager:
         )
 
         return model_trainer_config
+    
+    def get_model_evaluation_config(self) -> ModelEvaluationConfig:
+        config = self.config.model_evaluation
+
+        create_directories([config.root_dir])
+
+        model_evaluation_config = ModelEvaluationConfig(
+            root_dir= config.root_dir,
+            data_path= config.data_path,
+            model_path= config.model_path,
+            metrics_file_name= config.metrics_file_name
+        )
+        
+        return model_evaluation_config

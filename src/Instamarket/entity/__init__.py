@@ -31,3 +31,10 @@ class ModelTrainerConfig:
     data_path: Path
     model: str
     hparams: dict
+
+@dataclass(frozen=True)
+class ModelEvaluationConfig:
+    root_dir: Path
+    data_path: Path
+    model_path: Path
+    metrics_file_name: Path
