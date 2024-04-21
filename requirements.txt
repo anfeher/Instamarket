@@ -11,5 +11,6 @@ xgboost
 dill
 python-box
 ensure
-Flask
+fastapi
+uvicorn
 -e .
