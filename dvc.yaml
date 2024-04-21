@@ -1,0 +1,62 @@
+stages:
+  data_ingestion:
+    cmd: python src\instamarket\pipeline\stage_01_data_ingestion.py
+    deps:
+      - src\instamarket\pipeline\stage_01_data_ingestion.py
+      - config\config.yml
+    outs:
+      - artifacts\data_ingestion\raw_data.csv
+  
+  data_preprocessing:
+    cmd: python src\instamarket\pipeline\stage_02_data_preprocessing.py
+    deps:
+      - src\instamarket\pipeline\stage_02_data_preprocessing.py
+      - config\config.yml
+      - artifacts\data_ingestion\raw_data.csv
+    outs:
+      - artifacts\data_preprocessing\clean_data.csv
+      - artifacts\data_preprocessing\stores.pkl
+  
+  data_preparation:
+    cmd: python src\instamarket\pipeline\stage_03_data_preparation.py
+    deps:
+      - src\instamarket\pipeline\stage_03_data_preparation.py
+      - config\config.yml
+      - artifacts\data_preprocessing\clean_data.csv
+      - artifacts\data_preprocessing\stores.pkl
+    outs:
+      - artifacts\data_preparation\test.csv
+      - artifacts\data_preparation\train.csv
+  
+  data_transformation:
+    cmd: python src\instamarket\pipeline\stage_04_data_transformation.py
+    deps:
+      - src\instamarket\pipeline\stage_04_data_transformation.py
+      - config\config.yml
+      - artifacts\data_preparation\test.csv
+      - artifacts\data_preparation\train.csv
+    outs:
+      - artifacts\data_transformation\preprocessor.pkl
+      - artifacts\data_transformation\test.pkl
+      - artifacts\data_transformation\train.pkl
+
+  model_training:
+    cmd: python src\instamarket\pipeline\stage_05_model_trainer.py
+    deps:
+      - src\instamarket\pipeline\stage_05_model_trainer.py
+      - config\config.yml
+      - artifacts\data_transformation\train.pkl
+    params:
+      - training_arguments
+    outs:
+      - artifacts\model_trainer\model.pkl
+  
+  model_evaluation:
+    cmd: python src\instamarket\pipeline\stage_06_model_evaluation.py
+    deps:
+      - src\instamarket\pipeline\stage_06_model_evaluation.py
+      - config\config.yml
+      - artifacts\data_transformation\test.pkl
+      - artifacts\model_trainer\model.pkl
+    params:
+      - training_arguments

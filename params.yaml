@@ -1,5 +1,5 @@
 training_arguments:
-  model: "Gradient Boosting"
+  model: "XGBRegressor"
   hparams: {}
     # n_estimators: 100
     # criterion: 'squared_error'
